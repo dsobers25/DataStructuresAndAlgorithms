@@ -34,6 +34,34 @@ package Arrays.prefixsum.practiceproblems;
 public class RunningSumOfOneArray {
     
     public static void main(String[] args) {
+
+        // int[] nums = {1,2,3,4};
+        // int[] nums = {1,1,1,1,1};
+        int[] nums = {3,1,2,10,1};
+
+        int[] result = runningSum(nums);
+
+        System.out.print("[");
+        for(int i = 0; i < result.length; i++) {
+            System.out.print(result[i]);
+            if(i == result.length - 1) {                
+                System.out.print("]");
+            } else {
+                System.out.print(", ");
+            }
+        }
         
+    }
+
+    static int[] runningSum(int[] nums) {
+
+        int[] sumArray = new int[nums.length];
+        sumArray[0] = nums[0];
+
+        for(int i = 1; i < sumArray.length; i++ ) {
+            sumArray[i] = sumArray[i - 1] + nums[i];
+        }
+
+        return sumArray;
     }
 }

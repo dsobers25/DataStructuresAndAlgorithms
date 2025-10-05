@@ -1,4 +1,4 @@
-package Arrays;
+package Arrays.twopointer;
 
 /*
 * Given an integer array nums sorted in non-decreasing order, 
@@ -72,7 +72,16 @@ public class SortedSquares {
     }
     public static void main(String[] args) {
         int[] arr = {-4,-1,0,3,10};
-        System.out.println(sortedSquares(arr));
+        int[] result = sortedSquares(arr);
         
+        System.out.print("[");
+        for(int i = 0; i < result.length; i++) {
+            System.out.print(result[i]);
+            if(i == result.length - 1) {                
+                System.out.print("]");
+            } else {
+                System.out.print(", ");
+            }
+        }
     }
 }

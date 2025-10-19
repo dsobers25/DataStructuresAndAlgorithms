@@ -49,6 +49,10 @@ s consists of lowercase English letters.
 1 <= k <= s.length
 
      * 
+     * 8ms
+    Beats
+    97.69%
+
      * 
      */
     
@@ -70,13 +74,6 @@ s consists of lowercase English letters.
     }
 
     public static int maxVowels(String s, int k) {
-        List<Character> vowels = new ArrayList<Character>();
-        vowels.add('a');
-        vowels.add('e');
-        vowels.add('i');
-        vowels.add('o');
-        vowels.add('u');
-
         char[] str = s.toCharArray();
         int left = 0;
         int vowelCount = 0;
@@ -84,17 +81,34 @@ s consists of lowercase English letters.
 
         for(int right = 0; right < str.length; right++) {
 
-            if(vowels.contains(str[right])) {
-                vowelCount++;
+            switch(str[right]) {
+                case 'a':
+                case 'e':
+                case 'i':
+                case 'o':
+                case 'u':
+                    vowelCount++;
+                    break;
+                default:
+                    break;
             }
 
             if(right - left +1 == k) {
                 // get max vowel count from substring
                 maxVowels = Math.max(vowelCount, maxVowels);
 
-                if(vowels.contains(str[left])) {
-                    vowelCount--;
+                switch(str[left]) {
+                    case 'a':
+                    case 'e':
+                    case 'i':
+                    case 'o':
+                    case 'u':
+                        vowelCount--;
+                        break;
+                    default:
+                        break;
                 }
+
                 left++; // move left bound forward
 
             }

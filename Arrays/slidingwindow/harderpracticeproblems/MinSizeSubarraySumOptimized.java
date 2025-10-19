@@ -80,8 +80,20 @@ public class MinSizeSubarraySumOptimized {
         if(sum > target){
             return 1;
         }
-        
+
+        // the intuition behind the while loop is that 
+        // i is the left bound & j is the right
+        // therefore j should not go further then the length of the array
+        // and I shall always be less than j for the condition
+        // to be true
         while (j < nums.length && i < j) {
+            // since we start the loop off with 
+            // prev = 0 & j = 1
+            // the first iteration of the loop
+            // the condition is true
+            // and we add the sum which is nums[0]
+            // to the following element nums[1]
+            // then we update prev to j
             if(prev != j){
                 sum = sum + nums[j];
             }
@@ -90,6 +102,11 @@ public class MinSizeSubarraySumOptimized {
             if (nums[i] == target || nums[j] == target) {
                 return 1;
             }
+
+            // if sum is less than the target we increment the
+            // right bound j
+            // otherwise if sum is >= target
+            // we set the new minimum lenth subarray
 
             if (sum < target) {
                 j++;

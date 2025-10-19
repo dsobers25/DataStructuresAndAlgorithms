@@ -65,13 +65,22 @@ public class MinSizeSubarraySumOptimized {
         System.out.println(minSubArrayLen(target, nums));
     }
 
+    // the intuition I get here to think ahead to understand the edge cases in which the right data
+    // is returned. Since the goal of the program is to return the minimum length subarray
+    // for the sum of an array greater than or equal to the target
+
     public static int minSubArrayLen(int target, int[] nums) {
         int min = Integer.MAX_VALUE, sum = nums[0], i = 0, j=1, prev=0;
+
+        // sum is == to the first element of the array nums
+        // the smallest sub array we can have is 1
+        // so if sum is greater than the target
+        // we'll return 1 
 
         if(sum > target){
             return 1;
         }
-
+        
         while (j < nums.length && i < j) {
             if(prev != j){
                 sum = sum + nums[j];

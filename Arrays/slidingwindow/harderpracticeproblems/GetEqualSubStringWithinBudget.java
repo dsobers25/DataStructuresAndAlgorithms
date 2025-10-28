@@ -54,9 +54,9 @@ public class GetEqualSubStringWithinBudget {
     public static void main(String[] args) {
 
         // TC#1: Output = 3
-        String s = "abcd";
-        String t = "bcdf";
-        int maxCost = 3;
+        // String s = "abcd";
+        // String t = "bcdf";
+        // int maxCost = 3;
 
         // TC#2: Output = 1
         // String s = "abcd";
@@ -75,9 +75,9 @@ public class GetEqualSubStringWithinBudget {
         // int maxCost = 19;
 
         // TC#5: Output = 4
-        // String s = "pxezla";
-        // String t = "loewbi";
-        // int maxCost = 25;
+        String s = "pxezla";
+        String t = "loewbi";
+        int maxCost = 25;
 
         System.out.println(getMaxLengthSubString(s, t, maxCost));
         
@@ -85,48 +85,38 @@ public class GetEqualSubStringWithinBudget {
 
     public static int getMaxLengthSubString(String s, String t, int maxCost) {
 
-        char[] charS = s.toCharArray();
-        char[] charT = t.toCharArray();
-        int absoluteCost = 0;
-        int subStringLength = 0;
-        int currentCost = maxCost;
+        int maxLength = 0;
+        int left = 0;
+        int currentCost = 0;
 
-        for(int i = 0; i<charS.length; i++) {
+        // for loop iterates over s & t char arrays with right bound
+        // cost is the abs difference of |s[right] - t[right]|
+        // each iteration the abs diff will be added to the current cost
+        // then While loop checks if current accumulated subarray cost > maxCost
+        // if true we will increment +1 to left bound length
+        // and subtract abs difference of |s[left] - t[left]|
+        // until current cost is < maxCost 
+        // Once inner while loop is false
+        // We'll update maxLength with updated subarray length
+        // Once loop is done, return maxLength
+
+        for(int right = 0; right<s.length(); right++) {
+            int absDiffRight = Math.abs(s.charAt(right) - t.charAt(right));
+            System.out.println("absDiffRight = " + absDiffRight);
+            currentCost += absDiffRight;
             System.out.println("Starting currentCost = " + currentCost);
 
-            byte tempS = (byte) charS[i];
-            byte tempT = (byte) charT[i];
-
-            int cost = tempS - tempT;
-            System.out.println(charS[i] + " = " + tempS);
-            System.out.println(charT[i] + " = " + tempT);
-            System.out.println(charS[i] + " - " + charT[i] + " = " + cost);
-            System.out.println(tempS + " - " + tempT + " = " + cost);
-            System.out.println("cost = tempS - tempT\n" + tempS + " - " + tempT + " = " + cost);
-
-            boolean areTheyEqual = charS[i] == charT[i] ? true: false;
-
-            absoluteCost = cost < 0 ? cost* -1: cost;
-            System.out.println("absoluteCost = " + absoluteCost);
-
-            if(currentCost <= maxCost || areTheyEqual) {
-                System.out.println("currentCost is less than or equal to maxCost");
-                currentCost-=absoluteCost;
-                // maxCost=-absoluteCost;
-                System.out.println("updated currentCost = " + currentCost);
-                System.out.println("maxCost = " + maxCost);
-                if(currentCost >= absoluteCost) {
-                    subStringLength++;
-                    // break;
-                } else {
-                    currentCost+=absoluteCost;
-                }
-                System.out.println("subStringLength = " + subStringLength);
+            while(currentCost > maxCost) {
+                int absDiffLeft = Math.abs(s.charAt(left) - t.charAt(left));
+                currentCost -= absDiffLeft;
+                left++;
             }
-            System.out.println();
+
+            maxLength = Math.max(right - left + 1, maxLength);
+
         }
 
-        return subStringLength;
+        return maxLength;
 
     }
 }
